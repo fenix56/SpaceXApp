@@ -8,16 +8,15 @@
 import Foundation
 import Combine
 
-
 protocol LaunchesViewModelType {
     var stateBinding: Published<LaunchsState>.Publisher { get }
-    var launchesCount:Int { get }
-    func getCompanyInfo()-> String
-    func getLaunchClickDetails(for index:Int)-> [LaunchClickItemDetails]
-    func getLaunchInfo(for index:Int)-> LaunchDetails?
-    func fetchCompanyAndLaunchInfo(companyApiRequest:ApiRequestType, launchApiRequest:ApiRequestType)
+    var launchesCount: Int { get }
+    func getCompanyInfo() -> String
+    func getLaunchClickDetails(for index: Int) -> [LaunchClickItemDetails]
+    func getLaunchInfo(for index: Int) -> LaunchDetails?
+    func fetchCompanyAndLaunchInfo(companyApiRequest: ApiRequestType, launchApiRequest: ApiRequestType)
     
-    var filterCriteria:[FilterCriteria] {get}
+    var filterCriteria: [FilterCriteria] {get}
     
     func updateFilters()
 }
@@ -34,25 +33,25 @@ class LaunchesViewModel: LaunchesViewModelType {
     
     var filterCriteria: [FilterCriteria] = []
     
-    var stateBinding: Published<LaunchsState>.Publisher{ $state }
+    var stateBinding: Published<LaunchsState>.Publisher { $state }
     
-    private let repository:LaunchRepositoryType
-    private var cancellables:Set<AnyCancellable> = Set()
+    private let repository: LaunchRepositoryType
+    private var cancellables: Set<AnyCancellable> = Set()
     
     private var companyAndLaunchDetails: CompanyAndLaunchDetails?
     
     @Published  var state: LaunchsState = .none
     
-    var filteredLaunchDetails:[LaunchDetails] = []
+    var filteredLaunchDetails: [LaunchDetails] = []
     
     var launchesCount: Int {
-        if filteredLaunchDetails.count != 0 {
+        if !filteredLaunchDetails.isEmpty {
             return filteredLaunchDetails.count
         }
         return companyAndLaunchDetails?.launchDetails.count ?? 0
     }
     
-    init(repository:LaunchRepositoryType) {
+    init(repository: LaunchRepositoryType) {
         self.repository = repository
     }
     
@@ -63,7 +62,7 @@ class LaunchesViewModel: LaunchesViewModelType {
         
         let companyDetails = companyAndLaunchDetails.companyDetails
         
-        return  "\(companyDetails.name) was founded by \(companyDetails.founder) in \(companyDetails.year). It has now \(companyDetails.employees) employees, \(companyDetails.launchSites) launch sites, and is valued at USD \(companyDetails.valuation)"
+        return  "\(companyDetails.name) was founded by \(companyDetails.founder) in \(companyDetails.year). It has now \(companyDetails.employees) employees, \(companyDetails.launchSites) launch sites, and is valued at USD \(companyDetails.valuation)" // swiftlint:disable:this line_length
     }
     
     func getLaunchInfo(for index: Int) -> LaunchDetails? {
@@ -75,7 +74,7 @@ class LaunchesViewModel: LaunchesViewModelType {
             return nil
         }
         
-        if filteredLaunchDetails.count > 0 {
+        if !filteredLaunchDetails.isEmpty {
             return filteredLaunchDetails[index]
         }
         return companyAndLaunchDetails.launchDetails[index]
@@ -89,10 +88,8 @@ class LaunchesViewModel: LaunchesViewModelType {
     }
     
     func getFilterCriterias() -> [FilterCriteria] {
-        var years:Set<String> = Set()
-        var filterCriterias:[FilterCriteria] = []
-        
-        
+        var years: Set<String> = Set()
+        var filterCriterias: [FilterCriteria] = []
         
         companyAndLaunchDetails?.launchDetails.forEach({ launchDetails in
             years.insert(launchDetails.year)
@@ -100,7 +97,7 @@ class LaunchesViewModel: LaunchesViewModelType {
         
         let sortedYears = years.sorted()
         
-        filterCriterias.append(contentsOf:  sortedYears.map { FilterByYears(year:$0) })
+        filterCriterias.append(contentsOf: sortedYears.map { FilterByYears(year: $0) })
         
         filterCriterias.append(FilterByLaunchType(launchType: .failure))
         filterCriterias.append(FilterByLaunchType(launchType: .success))
@@ -116,11 +113,11 @@ class LaunchesViewModel: LaunchesViewModelType {
             $0.isSelected == true
         }
         filteredLaunchDetails = []
-        if let companyAndLaunchDetails = companyAndLaunchDetails  {
-            selectedFilterCriterias.forEach { fc in
+        if let companyAndLaunchDetails = companyAndLaunchDetails {
+            selectedFilterCriterias.forEach { filter in
                 
-                if let fc = fc as? FilterByLaunchType {
-                    switch fc.launchType {
+                if let filter = filter as? FilterByLaunchType {
+                    switch filter.launchType {
                     case .success:
                         
                         filteredLaunchDetails =  filteredLaunchDetails.filter { launchDetails in
@@ -135,22 +132,22 @@ class LaunchesViewModel: LaunchesViewModelType {
                     }
                 }
                 
-                if let fc = fc as? FilterByYears {
+                if let filter = filter as? FilterByYears {
                     filteredLaunchDetails.append(contentsOf: companyAndLaunchDetails.launchDetails.filter { launchDetails in
-                        launchDetails.year == fc.year
+                        launchDetails.year == filter.year
                     })
                 }
                 
-                if let _ = fc as? Sorting {
-                    if filteredLaunchDetails.count == 0 && selectedFilterCriterias.count == 1 {
+                if filter as? Sorting != nil {
+                    if filteredLaunchDetails.isEmpty && selectedFilterCriterias.count == 1 {
                         filteredLaunchDetails = companyAndLaunchDetails.launchDetails
                     }
-                    filteredLaunchDetails.sort{ Int($0.year) ?? 0 > Int($1.year) ?? 0}
+                    filteredLaunchDetails.sort { Int($0.year) ?? 0 > Int($1.year) ?? 0}
                     
                 }
                 
             }
-        }else {
+        } else {
             filteredLaunchDetails = []
         }
         
@@ -165,7 +162,7 @@ class LaunchesViewModel: LaunchesViewModelType {
         
         let launchPublisher = fetchLaunches(apiRequest: apiRequest)
         
-        let cancalable = Publishers.Zip(companyPublisher, launchPublisher).sink { completion in
+        let cancalable = Publishers.Zip(companyPublisher, launchPublisher).sink { _ in
             
         } receiveValue: { [weak self] companyDetails, launchesDetails in
             let companyAndLaunchDetails = CompanyAndLaunchDetails(companyDetails: companyDetails, launchDetails: launchesDetails)
@@ -180,13 +177,12 @@ class LaunchesViewModel: LaunchesViewModelType {
         
     }
     
-    func fetchCompanyInfo(apiRequest:ApiRequestType)-> AnyPublisher<CompanyDetails, ServiceError> {
+    func fetchCompanyInfo(apiRequest: ApiRequestType)-> AnyPublisher<CompanyDetails, ServiceError> {
         let publisher =   self.repository.getCompany(apiRequest: apiRequest)
         
         return publisher.eraseToAnyPublisher()
         
     }
-    
     
     func fetchLaunches(apiRequest: ApiRequestType)-> AnyPublisher<[LaunchDetails], ServiceError> {
         let publisher =   self.repository.getLaunches(apiRequest: apiRequest)

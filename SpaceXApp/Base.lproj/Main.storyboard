@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gNH-Kz-2pq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gNH-Kz-2pq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,18 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="JOY-wB-qIi">
-                                <rect key="frame" x="182" y="450" width="50" height="50"/>
+                                <rect key="frame" x="182" y="452" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="JDd-hw-UxB"/>
                                     <constraint firstAttribute="width" constant="50" id="vt5-c6-Weo"/>
                                 </constraints>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Mh9-BM-yc1">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="companyInfoCell" id="i38-CI-G8u" userLabel="CompanyCell" customClass="CompanyInfoTableViewCell" customModule="SpaceXApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="10"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="10"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i38-CI-G8u" id="uSw-X5-Pup">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="10"/>
@@ -54,7 +55,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="launchInfoCell" id="cDX-sg-zbo" userLabel="LaunchInfoCell" customClass="LaunchInfoTableViewCell" customModule="SpaceXApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="54.5" width="414" height="122"/>
+                                        <rect key="frame" x="0.0" y="60" width="414" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cDX-sg-zbo" id="4U2-A9-dkN">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
@@ -80,7 +81,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfm-Ev-Nb6">
                                                                             <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="100" id="N6g-TR-AnR"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="N6g-TR-AnR"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -100,7 +101,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t4a-xz-KAs">
                                                                             <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="100" id="Txo-q2-btB"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Txo-q2-btB"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -120,7 +121,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5t-DC-SCi">
                                                                             <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="100" id="om6-Ad-Iif"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="om6-Ad-Iif"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -140,7 +141,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XxL-cd-vWN">
                                                                             <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="100" id="d5r-io-PNA"/>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="d5r-io-PNA"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -233,15 +234,15 @@
             <objects>
                 <viewController storyboardIdentifier="FilterSelectionViewController" id="uu1-Zy-hEc" customClass="FilterSelectionViewController" customModule="SpaceXApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RJE-fe-BrS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pUb-8d-FWp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="790"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FilterCell" id="Abq-Au-Tl7" customClass="FilterTableViewCell" customModule="SpaceXApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Abq-Au-Tl7" id="LAq-oY-bMC">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -302,21 +303,13 @@
             </objects>
             <point key="canvasLocation" x="1782.608695652174" y="65.625"/>
         </scene>
-        <!--Hosting Controller-->
-        <scene sceneID="m9J-Iy-dlc">
-            <objects>
-                <hostingController id="mh1-C0-vCo" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uCj-K0-6d7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1593" y="774"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="cU4-CE-Svb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gNH-Kz-2pq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aqo-dx-SVF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" systemColor="systemGreenColor"/>

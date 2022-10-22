@@ -10,9 +10,9 @@ import XCTest
 
 class LaunchesViewModelTests: XCTestCase {
 
-    var launchViewModel:LaunchesViewModel!
-    var respository:LaunchRepository!
-    var networkManager:MockNetworkManager!
+    var launchViewModel: LaunchesViewModel!
+    var respository: LaunchRepository!
+    var networkManager: MockNetworkManager!
     
     override func setUpWithError() throws {
         
@@ -30,14 +30,13 @@ class LaunchesViewModelTests: XCTestCase {
         
         let companyApiRequest = ApiRequest(baseUrl: EndPoint.baseUrl, path: "company_response_success", params: [:])
         
-        let launchApiRequest = ApiRequest(baseUrl: EndPoint.baseUrl, path:"launc_details_scuccess", params: [:])
+        let launchApiRequest = ApiRequest(baseUrl: EndPoint.baseUrl, path: "launc_details_scuccess", params: [:])
         
         launchViewModel.fetchCompanyAndLaunchInfo(companyApiRequest: companyApiRequest, launchApiRequest: launchApiRequest)
         
         XCTAssertEqual(launchViewModel.launchesCount, 2)
         
-        XCTAssertEqual(launchViewModel.getCompanyInfo(), "SpaceX was founded by Elon Musk in 2002. It has now 9500 employees, 3 launch sites, and is valued at USD 74000000000")
-        
+        XCTAssertEqual(launchViewModel.getCompanyInfo(), "SpaceX was founded by Elon Musk in 2002. It has now 9500 employees, 3 launch sites, and is valued at USD 74000000000") // swiftlint:disable:this line_length
         
        let items =  launchViewModel.getLaunchClickDetails(for: 0)
         

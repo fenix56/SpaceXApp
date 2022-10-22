@@ -132,5 +132,3 @@ struct Reddit: Codable {
     let launch: String?
     let media, recovery: String?
 }
-
-

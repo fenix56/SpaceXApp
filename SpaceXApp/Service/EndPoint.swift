@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct EndPoint {
     static let baseUrl = "https://api.spacexdata.com/"
 }

@@ -33,7 +33,7 @@ final class LaunchInfoTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(launchDetails:LaunchDetails) {
+    func setData(launchDetails: LaunchDetails) {
         
         misisonNameLbl.accessibilityLabel = ""
         misisonNameLbl.text = "Mission:"

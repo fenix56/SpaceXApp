@@ -16,6 +16,4 @@ class SpaceXAppUITestsLaunchTests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
-
-    
 }

@@ -8,17 +8,17 @@
 import UIKit
 
 class FilterTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var yearLabel: UILabel!
-
-    @IBOutlet weak var yearImageView: UIImageView!
-    var filterCriteria:FilterCriteria?
     
-    func updateUI(filterCriteria:FilterCriteria) {
+    @IBOutlet weak var yearImageView: UIImageView!
+    var filterCriteria: FilterCriteria?
+    
+    func updateUI(filterCriteria: FilterCriteria) {
         self.filterCriteria = filterCriteria
-   
+        
         updateYearUI()
         addActions()
     }
@@ -27,19 +27,18 @@ class FilterTableViewCell: UITableViewCell {
         
         if let filterCriteria = filterCriteria as? FilterByYears {
             yearLabel.text = filterCriteria.year
-
+            
             let imageName = filterCriteria.isSelected ? "Selected" : "DeSelected"
             
             yearImageView.image = UIImage(named: imageName)
         }
         
-     
         if let filterCriteria = filterCriteria as? FilterByLaunchType {
             
             switch filterCriteria.launchType {
             case LaunchType.success:
                 yearLabel.text = "Launch Success"
-            case LaunchType.failure :
+            case LaunchType.failure:
                 yearLabel.text = "Launch Failure"
             }
             
@@ -57,17 +56,16 @@ class FilterTableViewCell: UITableViewCell {
     }
     
     func addActions() {
-        let stgr1 = UITapGestureRecognizer(target:self, action: #selector(yearTapped))
+        let stgr1 = UITapGestureRecognizer(target: self, action: #selector(yearTapped))
         stgr1.numberOfTouchesRequired = 1
         stackView.addGestureRecognizer( stgr1)
     }
-
     
     @objc func yearTapped() {
-        if var filterCriteria = filterCriteria  {
+        if var filterCriteria = filterCriteria {
             filterCriteria.isSelected = !filterCriteria.isSelected
             updateYearUI()
         }
     }
-
+    
 }

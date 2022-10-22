@@ -9,19 +9,19 @@ import Foundation
 import Combine
 
 protocol Networkable {
-    func doApiCall(apiRequest:ApiRequestType)-> Future<Data, ServiceError>
+    func doApiCall(apiRequest: ApiRequestType) -> Future<Data, ServiceError>
 }
 
 class NetowrkManager: Networkable {
-
-        let session:URLSession
     
-    init(session:URLSession = URLSession.shared) {
+    let session: URLSession
+    
+    init(session: URLSession = URLSession.shared) {
         self.session = session
     }
     
     func doApiCall(apiRequest: ApiRequestType) -> Future<Data, ServiceError> {
-    
+        
         return Future { [weak self ]promise in
             
             guard let request = URLRequest.getURLRequest(for: apiRequest) else {
@@ -36,11 +36,11 @@ class NetowrkManager: Networkable {
                     
                 }
                 
-                guard let _data = data, error == nil else {
+                guard let data = data, error == nil else {
                     return promise(.failure(ServiceError.dataNotFound))
                 }
-
-            return promise(.success(_data))
+                
+                return promise(.success(data))
             }).resume()
         }
     }

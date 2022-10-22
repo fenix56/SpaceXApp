@@ -11,17 +11,15 @@ import SwiftUI
 
 final class LaunchViewController: UIViewController {
     
-    
     @IBOutlet weak var activityIndecator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-    var anyCancellable:AnyCancellable?
+    var anyCancellable: AnyCancellable?
     
-    let viewModel:LaunchesViewModelType = LaunchesViewModel(repository: LaunchRepository())
+    let viewModel: LaunchesViewModelType = LaunchesViewModel(repository: LaunchRepository())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.tableView.dataSource = self
         
@@ -48,7 +46,7 @@ final class LaunchViewController: UIViewController {
     }
     
     private func bindData() {
-        anyCancellable =  viewModel.stateBinding.sink { completion in
+        anyCancellable =  viewModel.stateBinding.sink { _ in
             
         } receiveValue: { [weak self] launchState in
             DispatchQueue.main.async {
@@ -58,7 +56,7 @@ final class LaunchViewController: UIViewController {
         
     }
     
-    private func updateUI(state:LaunchsState) {
+    private func updateUI(state: LaunchsState) {
         switch state {
         case .none:
             tableView.isHidden = true
@@ -78,21 +76,21 @@ final class LaunchViewController: UIViewController {
         }
     }
     
-    private func showActionSheet(for index:Int) {
+    private func showActionSheet(for index: Int) {
         
         let items = viewModel.getLaunchClickDetails(for: index)
         
         let alert = UIAlertController(title: "SpaceX", message: "Please Select an Option", preferredStyle: .actionSheet)
         
         items.forEach { item in
-            alert.addAction(UIAlertAction(title: item.name, style: .default , handler:{ (UIAlertAction)in
+            alert.addAction(UIAlertAction(title: item.name, style: .default, handler: { _ in
                 if let url = URL(string: item.navigationUrl), UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, completionHandler: nil)
                 }
             }))
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { action in
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { _ in
             
         }))
         self.present(alert, animated: true, completion: {
@@ -104,7 +102,6 @@ final class LaunchViewController: UIViewController {
 
     }
     
-   
     deinit {
         anyCancellable?.cancel()
     }
@@ -119,25 +116,25 @@ extension LaunchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0 :
+        case 0:
             return 1
         case 1:
             return viewModel.launchesCount
-        default :
+        default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0 :
-            guard let cell = tableView.dequeueReusableCell(withIdentifier:"companyInfoCell") as? CompanyInfoTableViewCell else {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "companyInfoCell") as? CompanyInfoTableViewCell else {
                 return UITableViewCell()
             }
             cell.setData(companyInfo: viewModel.getCompanyInfo())
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier:"launchInfoCell") as? LaunchInfoTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "launchInfoCell") as? LaunchInfoTableViewCell else {
                 return UITableViewCell()
             }
             
@@ -147,10 +144,8 @@ extension LaunchViewController: UITableViewDataSource {
                 cell.setData(launchDetails: launchDetails)
             }
             
-            
-            
             return cell
-        default :
+        default:
             return UITableViewCell()
         }
     }
@@ -159,7 +154,7 @@ extension LaunchViewController: UITableViewDataSource {
 extension LaunchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame:CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
         
         view.backgroundColor = UIColor.black
         
@@ -168,22 +163,20 @@ extension LaunchViewController: UITableViewDelegate {
         view.addSubview(label)
         
         switch section {
-        case 0 :
+        case 0:
             label.text =  "Company"
         case 1:
             label.text = "LAUNCHES"
-        default :
+        default:
             label.text = ""
         }
         return view
     }
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showActionSheet(for: indexPath.row)
     }

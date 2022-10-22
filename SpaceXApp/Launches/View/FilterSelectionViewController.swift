@@ -9,7 +9,7 @@ import UIKit
 
 class FilterSelectionViewController: UIViewController {
 
-    var viewModel:LaunchesViewModelType!
+    var viewModel: LaunchesViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +29,8 @@ extension FilterSelectionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell") as? FilterTableViewCell else { return UITableViewCell() }
         
-        let fc = viewModel.filterCriteria[indexPath.row]
-        cell.updateUI(filterCriteria: fc)
+        let filter = viewModel.filterCriteria[indexPath.row]
+        cell.updateUI(filterCriteria: filter)
         return cell
     }
 }

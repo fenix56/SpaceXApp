@@ -9,30 +9,35 @@ import Foundation
 import Combine
 
 protocol LaunchRepositoryType {
-    func getCompany(apiRequest:ApiRequestType)->Future<CompanyDetails, ServiceError>
+    func getCompany(apiRequest: ApiRequestType)->Future<CompanyDetails, ServiceError>
     
-    func getLaunches(apiRequest:ApiRequestType)->Future<[LaunchDetails], ServiceError>
+    func getLaunches(apiRequest: ApiRequestType)->Future<[LaunchDetails], ServiceError>
 }
 
 class LaunchRepository: LaunchRepositoryType {
     
-    let networkManager:Networkable
-    var cancellables:Set<AnyCancellable?> = Set()
+    let networkManager: Networkable
+    var cancellables: Set<AnyCancellable?> = Set()
 
-    init(networkManager:Networkable = NetowrkManager()) {
+    init(networkManager: Networkable = NetowrkManager()) {
         self.networkManager = networkManager
     }
     
     func getCompany(apiRequest: ApiRequestType) -> Future<CompanyDetails, ServiceError> {
         return Future { [weak self] promise in
             
-            let cancellable =  self?.networkManager.doApiCall(apiRequest: apiRequest).sink { completion in
+            let cancellable =  self?.networkManager.doApiCall(apiRequest: apiRequest).sink { _ in
                 
             } receiveValue: { data in
                 guard let decodedResponse = try? JSONDecoder().decode(CompanyInfo.self, from: data) else {
                     return promise(.failure(ServiceError.parsinError))
                 }
-                let companyDetails = CompanyDetails(name:decodedResponse.name, founder: decodedResponse.founder, year: decodedResponse.founded, employees: decodedResponse.employees, launchSites: decodedResponse.launchSites, valuation: decodedResponse.valuation)
+                let companyDetails = CompanyDetails(name: decodedResponse.name,
+                                                    founder: decodedResponse.founder,
+                                                    year: decodedResponse.founded,
+                                                    employees: decodedResponse.employees,
+                                                    launchSites: decodedResponse.launchSites,
+                                                    valuation: decodedResponse.valuation)
                 return promise(.success(companyDetails))
 
             }
@@ -45,7 +50,7 @@ class LaunchRepository: LaunchRepositoryType {
     func getLaunches(apiRequest: ApiRequestType) -> Future<[LaunchDetails], ServiceError> {
         return Future { [weak self] promise in
             
-            let cancellable =  self?.networkManager.doApiCall(apiRequest: apiRequest).sink { completion in
+            let cancellable =  self?.networkManager.doApiCall(apiRequest: apiRequest).sink { _ in
                 
             } receiveValue: { data in
         
@@ -54,10 +59,16 @@ class LaunchRepository: LaunchRepositoryType {
                 }
                 
                let dateFormatter = DateFormatter()
-               let launchDetails =  decodedResponse.map{
-                   LaunchDetails(missionName: $0.name, missionLaunchDate: "\($0.dateUTC.getDate(dateFormatter, currentFormat: Constants.utcDateFormat, newFormat: Constants.dateFormat1)!)/\($0.dateUTC.getDate(dateFormatter, currentFormat: Constants.utcDateFormat, newFormat: Constants.dateFormat2)!)", missionLauncDisplayDate: "", rocketType: $0.rocket ?? "", daysSinceFrom:$0.dateUTC.daysSinceOrFrom( dateFormatter:dateFormatter), patchImage: $0.links.patch.small ?? "", isMissonSuccessFull: $0.success ?? false,
-                                 items: LaunchDetails.getLaunchClickDetails(launchInfo: $0),
-                                 year: $0.dateUTC.getDate(dateFormatter, currentFormat: Constants.utcDateFormat, newFormat:"YYYY") ?? "")
+                let launchDetails =  decodedResponse.map {
+                    LaunchDetails(missionName: $0.name,
+                                  missionLaunchDate: "\($0.dateUTC.getDate(dateFormatter, currentFormat: Constants.utcDateFormat, newFormat: Constants.dateFormat1)!)/\($0.dateUTC.getDate(dateFormatter, currentFormat: Constants.utcDateFormat, newFormat: Constants.dateFormat2)!)", // swiftlint:disable:this line_length
+                                  missionLauncDisplayDate: "",
+                                  rocketType: $0.rocket ?? "",
+                                  daysSinceFrom: $0.dateUTC.daysSinceOrFrom( dateFormatter: dateFormatter),
+                                  patchImage: $0.links.patch.small ?? "",
+                                  isMissonSuccessFull: $0.success ?? false,
+                                  items: LaunchDetails.getLaunchClickDetails(launchInfo: $0),
+                                  year: $0.dateUTC.getDate(dateFormatter, currentFormat: Constants.utcDateFormat, newFormat: "YYYY") ?? "")
                 }
                 return promise(.success(launchDetails))
 
@@ -67,7 +78,6 @@ class LaunchRepository: LaunchRepositoryType {
         }
     }
     
-   
     deinit {
         cancellables.forEach { cancellable in
             cancellable?.cancel()

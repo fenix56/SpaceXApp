@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // MARK: - CompanyInfo
 struct CompanyInfo: Decodable {
     let headquarters: Headquarters

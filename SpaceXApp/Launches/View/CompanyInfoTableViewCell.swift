@@ -22,7 +22,7 @@ final class CompanyInfoTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setData(companyInfo:String) {
+    func setData(companyInfo: String) {
         companyInfoLbl.text = companyInfo
     }
 }

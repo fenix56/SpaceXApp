@@ -18,32 +18,32 @@ enum SortType {
 }
 
 protocol FilterCriteria {
-    var isSelected:Bool {get set}
+    var isSelected: Bool {get set}
 }
-class FilterByYears:FilterCriteria {
-    var year:String
-    var isSelected:Bool
+class FilterByYears: FilterCriteria {
+    var year: String
+    var isSelected: Bool
     
-    init(year:String, isYearSelected:Bool = false) {
+    init(year: String, isYearSelected: Bool = false) {
         self.year = year
         self.isSelected = isYearSelected
     }
 }
 
-class FilterByLaunchType:FilterCriteria {
-    var launchType:LaunchType
-    var isSelected:Bool
+class FilterByLaunchType: FilterCriteria {
+    var launchType: LaunchType
+    var isSelected: Bool
 
-    init(launchType:LaunchType = LaunchType.success, isSelected:Bool = false) {
+    init(launchType: LaunchType = LaunchType.success, isSelected: Bool = false) {
         self.launchType = launchType
         self.isSelected = false
     }
 }
 
-class Sorting:FilterCriteria {
-    var sortType:SortType
-    var isSelected:Bool
-    init(sortType:SortType = SortType.asc) {
+class Sorting: FilterCriteria {
+    var sortType: SortType
+    var isSelected: Bool
+    init(sortType: SortType = SortType.asc) {
         self.sortType = sortType
         isSelected = true
     }

@@ -8,28 +8,27 @@
 import Foundation
 
 struct CompanyAndLaunchDetails {
-    let companyDetails:CompanyDetails
-    let launchDetails:[LaunchDetails]
+    let companyDetails: CompanyDetails
+    let launchDetails: [LaunchDetails]
 }
 
 struct LaunchDetails {
-    let missionName:String
-    let missionLaunchDate:String
-    let missionLauncDisplayDate:String
-    let rocketType:String
-    let daysSinceFrom:(String, Int)
-    let patchImage:String
-    let isMissonSuccessFull:Bool
-    var items:[LaunchClickItemDetails] = []
-    var year:String
+    let missionName: String
+    let missionLaunchDate: String
+    let missionLauncDisplayDate: String
+    let rocketType: String
+    let daysSinceFrom: (String, Int)
+    let patchImage: String
+    let isMissonSuccessFull: Bool
+    var items: [LaunchClickItemDetails] = []
+    var year: String
     
-    static func getLaunchClickDetails(launchInfo:LaunchInfo)-> [LaunchClickItemDetails] {
-        var items:[LaunchClickItemDetails] = []
+    static func getLaunchClickDetails(launchInfo: LaunchInfo) -> [LaunchClickItemDetails] {
+        var items: [LaunchClickItemDetails] = []
         
         if let webCast = launchInfo.links.webcast {
             items.append(LaunchClickItemDetails(name: "Web Cast", navigationUrl: webCast))
         }
-        
         
         if let wikipedia = launchInfo.links.wikipedia {
             items.append(LaunchClickItemDetails(name: "Wikipedia", navigationUrl: wikipedia))
@@ -47,15 +46,15 @@ struct LaunchDetails {
 }
 
 struct CompanyDetails {
-    let name:String
-    let founder:String
-    let year:Int
-    let employees:Int
-    let launchSites:Int
-    let valuation:Int
+    let name: String
+    let founder: String
+    let year: Int
+    let employees: Int
+    let launchSites: Int
+    let valuation: Int
 }
 
 struct LaunchClickItemDetails {
-    let name:String
-    let navigationUrl:String
+    let name: String
+    let navigationUrl: String
 }
